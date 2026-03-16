@@ -8,6 +8,31 @@
 
 ## Version History
 
+### v2.34 — xclog Console Capture Tool (2026-03-15)
+
+**xclog — iOS console capture for LLMs.** No single external tool replicates Xcode's debug console. xclog combines `simctl launch --console` (print/debugPrint) with `log stream --style ndjson` (os_log/Logger) into unified structured JSON output, purpose-built for LLM consumption.
+
+**Tool** (`tools/xclog/`):
+- `launch` — full capture (print + os_log), simulator only
+- `attach` — live os_log stream from running process, simulator only
+- `show` — historical log search (post-mortem), works with simulator AND physical devices via `log collect`
+- `list` — discover installed apps on simulator
+- JSON-lines output by default with level, subsystem, category, process, pid fields
+- `--timeout`, `--max-lines` for bounded capture (context-safe for LLMs)
+- `--filter` (regex), `--subsystem` for noise reduction
+- Universal binary (ARM64 + Intel) shipped at `bin/xclog`
+- 30 unit tests, fuzz-tested ndjson parser (1.8M executions, 0 failures)
+
+**Axiom integration**:
+- `axiom-xclog-ref` reference skill — TDD-tested (13/13 RED→GREEN), crash diagnosis and silent failure workflows
+- `/axiom:console` command — guided capture with list → launch flow
+- Session-start hook injects xclog awareness into every conversation
+- Routed via `ios-build` (entry #16) and `ios-performance` routers
+- VitePress doc pages for skill and command
+- MCP bundle updated (searchable via MCP server)
+
+**TDD results**: RED phase identified 13 failure modes without the skill (partial capture, unbounded output, no JSON, no bundle ID discovery, context flooding, app state loss, misdiagnosis risk). GREEN phase confirmed all 13 addressed. One REFACTOR applied (launch-vs-attach decision promoted to Critical Best Practices).
+
 ### LLDB Debugging Skill Suite (2026-02-18)
 
 **New LLDB debugging skills** — Complete LLDB debugging support with discipline + reference skill pair:
