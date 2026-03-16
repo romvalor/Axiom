@@ -9,5 +9,6 @@
 {"key":"compact_tier2_dep_levels","value":"5"}
 {"key":"compaction_enabled","value":"false"}
 {"key":"issue_prefix","value":"Axiom"}
+{"key":"kv.memory.skill-chaining-workflow-composition-is-unreliable-in-current","value":"Skill chaining/workflow composition is unreliable in current Claude Code (per Jesse Vincent's 5 months of debugging). Prose directives get skipped; checklists and GraphViz are followed. The Description Trap means explaining what a skill does causes Claude to skip it. Axiom's problem-specific use case doesn't naturally chain. Deferred Axiom-g7o3."}
 {"key":"schema_version","value":"6"}
 {"key":"types.custom","value":"molecule,gate,convoy,merge-request,slot,agent,role,rig,message"}
